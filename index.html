@@ -2,1155 +2,1425 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#05070b">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#080b12">
 <title>VANTA PROXY</title>
 
 <style>
 :root {
-  --bg:#05070b;
-  --panel:#0b1019;
-  --panel2:#101927;
-  --blue:#168cff;
-  --blue2:#54b6ff;
-  --text:#f4f8ff;
-  --muted:#8493a8;
-  --border:rgba(64,151,255,.18);
-  --green:#36e7a1;
-  --red:#ff6478;
+  --bg: #080b12;
+  --panel: #101622;
+  --panel2: #151e2d;
+  --blue: #168cff;
+  --blue2: #0066ff;
+  --text: #f4f7ff;
+  --muted: #8190a8;
+  --green: #32d583;
+  --red: #ff5263;
+  --border: #202d40;
 }
 
 * {
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body {
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  overscroll-behavior:none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  position:fixed;
-  inset:0;
-  user-select:none;
-  -webkit-user-select:none;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
 }
 
-button,input {
-  font:inherit;
+button, input {
+  font: inherit;
 }
 
 button {
-  cursor:pointer;
+  cursor: pointer;
 }
 
-/* APP */
+.hidden {
+  display: none !important;
+}
+
 .app {
-  width:100%;
-  height:100%;
-  height:100dvh;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  background:
-    radial-gradient(ellipse at 50% -20%,rgba(22,140,255,.14),transparent 55%),
-    var(--bg);
-  padding-top:env(safe-area-inset-top);
-  padding-bottom:env(safe-area-inset-bottom);
+  max-width: 520px;
+  min-height: 100vh;
+  margin: auto;
+  padding-bottom: 90px;
 }
 
 /* HEADER */
-.topbar {
-  flex-shrink:0;
-  height:68px;
-  padding:0 19px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  background:#05070b;
+
+.header {
+  padding: 23px 20px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: #0b101a;
 }
 
 .brand {
-  display:flex;
-  align-items:center;
-  gap:10px;
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 2px;
 }
 
-.brand-icon {
-  width:39px;
-  height:39px;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(145deg,#168cff,#0751a4);
-  box-shadow:0 0 24px rgba(22,140,255,.25);
-  font-size:21px;
-  font-weight:900;
-}
-
-.brand-name {
-  font-size:16px;
-  font-weight:900;
-  letter-spacing:1px;
+.brand span {
+  color: var(--blue);
 }
 
 .brand-sub {
-  margin-top:4px;
-  color:var(--muted);
-  font-size:9px;
-  letter-spacing:1.8px;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 3px;
 }
 
-.status {
-  display:flex;
-  align-items:center;
-  gap:6px;
-  color:var(--green);
-  font-size:9px;
-  font-weight:800;
+.online {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--green);
 }
 
-.status-dot {
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
+.dot {
+  width: 7px;
+  height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 9px #32d58388;
 }
 
-/* CONTENT */
+/* MAIN */
+
 .content {
-  flex:1;
-  min-height:0;
-  position:relative;
-  overflow:hidden;
+  padding: 20px;
 }
 
-.page {
-  display:none;
-  height:100%;
-  overflow-y:auto;
-  overscroll-behavior:contain;
-  -webkit-overflow-scrolling:touch;
-  padding:18px 16px 26px;
-  scrollbar-width:none;
-}
-
-.page::-webkit-scrollbar {
-  display:none;
-}
-
-.page.active {
-  display:block;
+.section-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin: 23px 0 12px;
 }
 
 .hero {
-  padding:22px 18px;
-  margin-bottom:19px;
-  border:1px solid rgba(52,151,255,.25);
-  border-radius:18px;
-  background:
-    radial-gradient(circle at 100% 0%,rgba(22,140,255,.2),transparent 55%),
-    linear-gradient(140deg,#101b2b,#090e17 75%);
+  background: linear-gradient(145deg, #13233a, #0d1420 65%);
+  border: 1px solid #1b3d65;
+  border-radius: 18px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -65px;
+  top: -65px;
+  border-radius: 50%;
+  background: #168cff16;
 }
 
 .hero-label {
-  color:var(--blue2);
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:2px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #8ebfff;
 }
 
 .hero h1 {
-  margin:12px 0 8px;
-  font-size:28px;
-  line-height:1.15;
-  letter-spacing:1px;
-}
-
-.hero h1 span {
-  color:var(--blue2);
+  margin: 10px 0 5px;
+  font-size: 26px;
+  letter-spacing: 1px;
 }
 
 .hero p {
-  margin:0;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.section-heading {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:22px 2px 12px;
-}
-
-.section-heading h2 {
-  margin:0;
-  font-size:13px;
-  font-weight:850;
-  letter-spacing:.5px;
-}
-
-.section-heading span {
-  color:var(--muted);
-  font-size:9px;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
 }
 
 .card {
-  padding:15px;
-  margin-bottom:12px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  background:linear-gradient(145deg,#101927,#090e16);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 17px;
+  margin-bottom: 12px;
 }
 
 .card-title {
-  display:flex;
-  align-items:center;
-  gap:11px;
-  margin-bottom:14px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .5px;
 }
 
-.card-icon {
-  display:grid;
-  place-items:center;
-  width:38px;
-  height:38px;
-  flex-shrink:0;
-  border-radius:11px;
-  color:var(--blue2);
-  background:rgba(22,140,255,.12);
-  border:1px solid rgba(22,140,255,.17);
-  font-size:18px;
-}
-
-.card-title h3 {
-  margin:0;
-  font-size:14px;
-}
-
-.card-title p {
-  margin:4px 0 0;
-  color:var(--muted);
-  font-size:10px;
+.card-description {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 6px;
 }
 
 .row {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  min-height:47px;
-  border-top:1px solid rgba(255,255,255,.045);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
-.row-label {
-  font-size:12px;
-  color:#dce7f5;
+.badge {
+  font-size: 10px;
+  padding: 6px 9px;
+  background: #112c24;
+  color: var(--green);
+  border-radius: 6px;
+}
+
+.blue-badge {
+  background: #102a48;
+  color: #70b7ff;
+}
+
+/* BUTTONS */
+
+.primary-btn {
+  width: 100%;
+  border: 1px solid #339bff;
+  border-radius: 11px;
+  padding: 15px;
+  color: white;
+  background: linear-gradient(100deg, #087cff, #0058ed);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  box-shadow: 0 5px 20px #0066ff22;
+}
+
+.primary-btn:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+.secondary-btn {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--panel2);
+  color: var(--text);
+  padding: 11px 14px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.danger-btn {
+  border: 1px solid #57242c;
+  background: #25141a;
+  color: #ff7a88;
+  border-radius: 9px;
+  padding: 11px 14px;
+}
+
+/* INJECT */
+
+.inject-card {
+  text-align: center;
+  padding: 23px 18px;
+  border-color: #183d65;
+  background: linear-gradient(155deg, #111d2e, #0d121d);
+}
+
+.inject-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: #72baff;
+  background: #102a48;
+  border: 1px solid #1b4775;
+  font-size: 27px;
+}
+
+.inject-btn {
+  margin-top: 20px;
+  min-height: 54px;
+  font-size: 14px;
+}
+
+.inject-spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 9px;
+  border: 2px solid #ffffff45;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.inject-status {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 14px;
+}
+
+.server-info {
+  margin-top: 18px;
+  padding: 15px;
+  border-radius: 11px;
+  background: #0b1420;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.server-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.server-row:last-child {
+  border-bottom: none;
+}
+
+.server-value {
+  color: #70b7ff;
+  font-family: monospace;
+  overflow-wrap: anywhere;
+}
+
+.display-note {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+  margin-top: 12px;
 }
 
 /* TOGGLES */
-.toggle {
-  position:relative;
-  width:43px;
-  height:25px;
-  flex-shrink:0;
-  border:1px solid #263447;
-  border-radius:30px;
-  background:#1a2432;
-  transition:.2s;
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.toggle::after {
-  content:"";
-  position:absolute;
-  top:3px;
-  left:3px;
-  width:17px;
-  height:17px;
-  border-radius:50%;
-  background:#8795a7;
-  transition:.2s;
+.setting-row:last-child {
+  border-bottom: none;
 }
 
-.toggle.on {
-  background:var(--blue);
-  border-color:var(--blue);
+.setting-name {
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.toggle.on::after {
-  left:21px;
-  background:white;
+.setting-desc {
+  margin-top: 4px;
+  font-size: 10px;
+  color: var(--muted);
 }
 
-.color-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding-top:12px;
-  margin-top:7px;
-  border-top:1px solid rgba(255,255,255,.045);
+.switch {
+  position: relative;
+  width: 43px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
-.color-row label {
-  color:var(--muted);
-  font-size:11px;
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #293548;
+  border-radius: 30px;
+  transition: .2s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: white;
+  transition: .2s;
+}
+
+.switch input:checked + .slider {
+  background: var(--blue);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(19px);
+}
+
+/* SELECTORS */
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.option-btn {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 13px 8px;
+  background: #0c121d;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.option-btn.active {
+  color: white;
+  border-color: var(--blue);
+  background: #102947;
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 13px;
+  color: white;
+  background: #0b111c;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  outline: none;
 }
 
 input[type="color"] {
-  width:43px;
-  height:30px;
-  border:0;
-  background:transparent;
-}
-
-/* SPEED */
-.speed-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-}
-
-.speed-btn {
-  padding:13px 5px;
-  border:1px solid #24354b;
-  border-radius:11px;
-  color:#a8b7cb;
-  background:#0b121e;
-  font-size:12px;
-  font-weight:800;
-}
-
-.speed-btn.selected {
-  border-color:var(--blue);
-  background:rgba(22,140,255,.16);
-  color:var(--blue2);
-}
-
-/* INPUTS */
-.input {
-  width:100%;
-  height:46px;
-  margin-top:6px;
-  padding:0 13px;
-  outline:none;
-  border:1px solid #26364b;
-  border-radius:11px;
-  color:white;
-  background:#080d15;
-  font-size:13px;
-  user-select:text;
-  -webkit-user-select:text;
-}
-
-.input:focus {
-  border-color:var(--blue);
-}
-
-.action-btn {
-  width:100%;
-  min-height:47px;
-  margin-top:13px;
-  border:0;
-  border-radius:12px;
-  color:white;
-  background:linear-gradient(100deg,#0874e8,#168cff);
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-
-.action-btn:disabled {
-  opacity:.55;
-}
-
-.notice {
-  margin-top:12px;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:11px;
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.6;
-  overflow-wrap:anywhere;
-}
-
-.info-row {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.05);
-  font-size:12px;
-}
-
-.info-row span:first-child {
-  color:var(--muted);
-}
-
-.info-row span:last-child {
-  text-align:right;
-  overflow-wrap:anywhere;
-}
-
-/* ACCOUNT */
-.account-mark {
-  margin:16px auto 20px;
-  width:80px;
-  height:80px;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(22,140,255,.4);
-  border-radius:24px;
-  background:linear-gradient(145deg,#102c4d,#0a1423);
-  color:var(--blue2);
-  font-size:34px;
-  font-weight:900;
-}
-
-.account-name {
-  text-align:center;
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-
-.account-caption {
-  margin:7px 0 25px;
-  color:var(--muted);
-  text-align:center;
-  font-size:11px;
+  width: 45px;
+  height: 35px;
+  background: transparent;
+  border: none;
 }
 
 /* NAVIGATION */
+
 .bottom-nav {
-  flex-shrink:0;
-  height:65px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  padding:5px 12px;
-  border-top:1px solid var(--border);
-  background:#05070b;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 520px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #0b101aee;
+  backdrop-filter: blur(15px);
+  border-top: 1px solid var(--border);
+  padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
+  z-index: 20;
 }
 
 .nav-btn {
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:5px;
-  border:0;
-  border-radius:12px;
-  color:#728198;
-  background:transparent;
-  font-size:10px;
-  font-weight:750;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  padding: 7px 2px;
 }
 
-.nav-icon {
-  font-size:19px;
-  line-height:1;
+.nav-btn .nav-icon {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .nav-btn.active {
-  color:var(--blue2);
+  color: var(--blue);
 }
 
-/* ACTIVATION GATE */
-#licenseGate {
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:
-    radial-gradient(ellipse at 50% 0%,rgba(22,140,255,.2),transparent 55%),
-    #05070b;
+/* LICENSE SCREEN */
+
+.license-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  background: #080b12;
+  overflow-y: auto;
 }
 
-#licenseGate.hidden {
-  display:none;
+.license-box {
+  width: 100%;
+  max-width: 390px;
+  padding: 25px;
+  background: #101622;
+  border: 1px solid #20334a;
+  border-radius: 18px;
+  box-shadow: 0 20px 80px #0008;
 }
 
-.gate-box {
-  width:100%;
-  max-width:380px;
-  text-align:center;
+.license-logo {
+  text-align: center;
+  margin-bottom: 28px;
 }
 
-.gate-logo {
-  width:76px;
-  height:76px;
-  margin:0 auto 24px;
-  display:grid;
-  place-items:center;
-  border-radius:22px;
-  background:linear-gradient(145deg,#168cff,#0751a4);
-  box-shadow:0 0 35px rgba(22,140,255,.25);
-  color:white;
-  font-size:34px;
-  font-weight:900;
+.license-logo .brand {
+  font-size: 30px;
 }
 
-.gate-box h1 {
-  margin:0;
-  font-size:25px;
-  letter-spacing:2px;
+.license-logo p {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 3px;
 }
 
-.gate-box h1 span {
-  color:var(--blue2);
+.license-box h2 {
+  font-size: 19px;
+  margin: 0 0 8px;
 }
 
-.gate-subtitle {
-  margin:12px 0 28px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.7;
+.license-box .subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 22px;
 }
 
-.gate-input-wrap {
-  position:relative;
+.input-label {
+  display: block;
+  color: #aebbd0;
+  font-size: 11px;
+  margin-bottom: 8px;
 }
 
-.gate-input {
-  width:100%;
-  height:52px;
-  padding:0 48px 0 15px;
-  border:1px solid rgba(64,151,255,.3);
-  border-radius:13px;
-  outline:none;
-  background:#0b1019;
-  color:white;
-  font-size:14px;
-  user-select:text;
-  -webkit-user-select:text;
+.license-box input {
+  margin-bottom: 13px;
 }
 
-.gate-input:focus {
-  border-color:var(--blue);
+.message {
+  margin-top: 14px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
-#toggleKeyVisibility {
-  position:absolute;
-  right:8px;
-  top:8px;
-  width:36px;
-  height:36px;
-  border:0;
-  background:transparent;
-  color:var(--blue2);
+.message.error {
+  color: var(--red);
 }
 
-.gate-button {
-  width:100%;
-  height:50px;
-  margin-top:14px;
-  border:0;
-  border-radius:13px;
-  background:linear-gradient(100deg,#0874e8,#168cff);
-  color:white;
-  font-weight:900;
-  letter-spacing:1px;
+.message.success {
+  color: var(--green);
 }
 
-.gate-button:disabled {
-  opacity:.55;
+.footer-note {
+  text-align: center;
+  color: #526178;
+  font-size: 10px;
+  margin-top: 22px;
 }
 
-#licenseMessage {
-  min-height:38px;
-  margin-top:16px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
+/* ACCOUNT */
+
+.account-line {
+  margin-top: 15px;
+  padding: 13px;
+  background: #0b111c;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  overflow-wrap: anywhere;
 }
 
-#licenseMessage.error {
-  color:var(--red);
+.account-line span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-bottom: 7px;
 }
 
-#licenseMessage.success {
-  color:var(--green);
-}
-
-.gate-footer {
-  margin-top:18px;
-  color:#516177;
-  font-size:10px;
-  letter-spacing:1px;
-}
-
-/* TOAST */
-.toast {
-  position:fixed;
-  z-index:100000;
-  bottom:calc(82px + env(safe-area-inset-bottom));
-  left:18px;
-  right:18px;
-  padding:13px 15px;
-  border:1px solid rgba(22,140,255,.35);
-  border-radius:12px;
-  background:#101a29;
-  color:white;
-  font-size:12px;
-  line-height:1.5;
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(8px);
-  transition:.2s;
-}
-
-.toast.show {
-  opacity:1;
-  transform:translateY(0);
-}
-
-@media (max-height:700px) {
-  .topbar { height:60px; }
-  .page { padding-top:12px; }
-  .hero { padding:16px; }
-  .hero h1 { font-size:24px; }
-  .gate-logo { width:64px;height:64px;margin-bottom:17px; }
-  .gate-subtitle { margin:9px 0 19px; }
+@media (max-width: 360px) {
+  .content { padding: 14px; }
+  .brand { font-size: 20px; }
+  .hero h1 { font-size: 22px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- تظهر شاشة التفعيل قبل التطبيق -->
-<div id="licenseGate">
-  <div class="gate-box">
-    <div class="gate-logo">V</div>
-    <h1>VANTA <span>PROXY</span></h1>
+<!-- LICENSE GATE -->
 
-    <p class="gate-subtitle">
-      LICENSE ACTIVATION<br>
-      Enter your license key to continue.
-    </p>
+<div class="license-gate" id="licenseGate">
+  <div class="license-box">
+
+    <div class="license-logo">
+      <div class="brand">VANTA <span>PROXY</span></div>
+      <p>SECURE ACCESS SYSTEM</p>
+    </div>
+
+    <h2>License Verification</h2>
+
+    <div class="subtitle">
+      Enter your license key to access the application.
+      Your key will be verified by the license server.
+    </div>
 
     <form id="licenseForm">
-      <div class="gate-input-wrap">
-        <input
-          id="licenseInput"
-          class="gate-input"
-          type="password"
-          placeholder="Enter your license key"
-          autocomplete="off"
-          autocapitalize="off"
-          spellcheck="false"
-          required
-        >
-        <button
-          id="toggleKeyVisibility"
-          type="button"
-          aria-label="Show or hide key"
-        >◉</button>
-      </div>
+      <label class="input-label" for="licenseKey">LICENSE KEY</label>
 
-      <button id="licenseSubmit" class="gate-button" type="submit">
-        ACTIVATE KEY
+      <input
+        type="text"
+        id="licenseKey"
+        placeholder="Enter your license key"
+        autocomplete="off"
+        required
+      >
+
+      <button type="submit" class="primary-btn" id="activateBtn">
+        ACTIVATE LICENSE
       </button>
     </form>
 
-    <div id="licenseMessage" aria-live="polite">
-      Enter a valid license key to unlock the application.
+    <div class="message" id="licenseMessage" role="status"></div>
+
+    <div class="footer-note">
+      VANTA PROXY · LICENSE PROTECTION
     </div>
 
-    <div class="gate-footer">VANTA PROXY • LICENSE SYSTEM</div>
   </div>
 </div>
 
-<div class="app">
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">V</div>
-      <div>
-        <div class="brand-name">VANTA PROXY</div>
-        <div class="brand-sub">CONTROL CENTER</div>
-      </div>
+<!-- APPLICATION -->
+
+<div class="app" id="app">
+
+  <header class="header">
+    <div>
+      <div class="brand">VANTA <span>PROXY</span></div>
+      <div class="brand-sub">CONTROL PANEL</div>
     </div>
-    <div class="status">
-      <span class="status-dot"></span>
+
+    <div class="online">
+      <span class="dot"></span>
       <span>APP READY</span>
     </div>
   </header>
 
+
   <main class="content">
 
     <!-- HOME -->
-    <section class="page active" id="home">
+
+    <section class="page" id="page-home">
+
       <div class="hero">
-        <div class="hero-label">VANTA / CONTROL PANEL</div>
-        <h1>YOUR CONTROL.<br><span>YOUR SETTINGS.</span></h1>
-        <p>Manage your available options from one clean interface.</p>
+        <div class="hero-label">VANTA PROXY SYSTEM</div>
+        <h1>CONTROL CENTER</h1>
+        <p>Manage your available settings from one place.</p>
       </div>
 
-      <div class="section-heading">
-        <h2>AIM EDIT</h2><span>SETTINGS</span>
+      <div class="section-title">CONNECTION</div>
+
+      <div class="card inject-card">
+
+        <div class="inject-icon">↗</div>
+
+        <div class="card-title">SERVER INITIALIZATION</div>
+
+        <div class="card-description">
+          Start the interface initialization sequence.
+        </div>
+
+        <button class="primary-btn inject-btn" id="injectBtn">
+          <span id="injectText">INJECT</span>
+        </button>
+
+        <div class="inject-status" id="injectStatus">
+          Ready to initialize
+        </div>
+
+        <div class="server-info hidden" id="serverInfo">
+
+          <div class="server-row">
+            <span>IP Address</span>
+            <span class="server-value">185.220.101.45</span>
+          </div>
+
+          <div class="server-row">
+            <span>Port</span>
+            <span class="server-value">4551</span>
+          </div>
+
+          <div class="server-row">
+            <span>Result</span>
+            <span class="server-value">DEMO COMPLETE</span>
+          </div>
+
+          <div class="display-note">
+            Demo information only. No network connection has been established.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-title">QUICK SETTINGS</div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="card-title">Aim Edit</div>
+            <div class="card-description">Configure display preferences.</div>
+          </div>
+          <button class="secondary-btn" data-page="aim">OPEN</button>
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <div class="card-icon">⌖</div>
-          <div><h3>Aim Edit</h3><p>Configuration options</p></div>
+        <div class="row">
+          <div>
+            <div class="card-title">ESP Settings</div>
+            <div class="card-description">Configure visual preferences.</div>
+          </div>
+          <button class="secondary-btn" data-page="esp">OPEN</button>
         </div>
-
-        <div class="row"><span class="row-label">Aim Drag</span><button class="toggle" aria-label="Aim Drag" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Body</span><button class="toggle" aria-label="Aim Body" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Neck</span><button class="toggle" aria-label="Aim Neck" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Chest</span><button class="toggle" aria-label="Aim Chest" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Body - HS</span><button class="toggle" aria-label="Aim Body HS" aria-pressed="false"></button></div>
-      </div>
-
-      <div class="section-heading">
-        <h2>ESP SETTINGS</h2><span>VISUAL OPTIONS</span>
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <div class="card-icon">◈</div>
-          <div><h3>ESP</h3><p>Display configuration</p></div>
+        <div class="row">
+          <div>
+            <div class="card-title">Speed Settings</div>
+            <div class="card-description">Select an interface preset.</div>
+          </div>
+          <button class="secondary-btn" data-page="speed">OPEN</button>
         </div>
-        <div class="row"><span class="row-label">3D Weapon</span><button class="toggle" aria-label="3D Weapon" aria-pressed="false"></button></div>
-        <div class="color-row">
-          <label for="espColor">ESP Color</label>
+      </div>
+
+    </section>
+
+
+    <!-- AIM -->
+
+    <section class="page hidden" id="page-aim">
+
+      <div class="section-title">AIM EDIT</div>
+
+      <div class="card">
+
+        <div class="card-title">Aim Settings</div>
+
+        <div class="card-description">
+          These options are visual interface controls only.
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-name">Aim Drag</div>
+            <div class="setting-desc">Interface toggle</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-name">Aim Body</div>
+            <div class="setting-desc">Interface toggle</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-name">Aim Neck</div>
+            <div class="setting-desc">Interface toggle</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-name">Aim Chest</div>
+            <div class="setting-desc">Interface toggle</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-name">Aim Body - HS</div>
+            <div class="setting-desc">Interface toggle</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ESP -->
+
+    <section class="page hidden" id="page-esp">
+
+      <div class="section-title">ESP SETTINGS</div>
+
+      <div class="card">
+
+        <div class="card-title">Visual Options</div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-name">3D Weapon</div>
+            <div class="setting-desc">Interface toggle</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-name">ESP Display</div>
+            <div class="setting-desc">Interface toggle</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="section-title">ESP COLOR</div>
+
+        <div class="row">
+          <div>
+            <div class="card-title">Display Color</div>
+            <div class="card-description">Choose a preferred color.</div>
+          </div>
+
           <input type="color" id="espColor" value="#168cff">
         </div>
+
       </div>
 
-      <div class="section-heading">
-        <h2>SPEED</h2><span>SELECT OPTION</span>
-      </div>
-
-      <div class="card">
-        <div class="card-title">
-          <div class="card-icon">ϟ</div>
-          <div><h3>Speed Settings</h3><p>Choose an interface option</p></div>
-        </div>
-        <div class="speed-grid">
-          <button class="speed-btn" data-speed="X2">X2</button>
-          <button class="speed-btn" data-speed="X3">X3</button>
-          <button class="speed-btn" data-speed="X5">X5</button>
-        </div>
-      </div>
-
-      <div class="section-heading">
-        <h2>MOD PC</h2><span>PLAYER INFORMATION</span>
-      </div>
-
-      <div class="card">
-        <div class="card-title">
-          <div class="card-icon">⌘</div>
-          <div><h3>MOD PC</h3><p>Enter your UID</p></div>
-        </div>
-        <input class="input" id="uid" type="text" placeholder="Enter UID" autocomplete="off">
-        <button class="action-btn" id="saveUid">SAVE UID</button>
-        <div class="notice" id="uidNotice">UID is kept only for this session.</div>
-      </div>
     </section>
 
-    <!-- VRS -->
-    <section class="page" id="vrs">
-      <div class="section-heading" style="margin-top:4px">
-        <h2>VRS CENTER</h2><span>VANTA</span>
-      </div>
 
-      <div class="hero">
-        <div class="hero-label">VANTA / VRS</div>
-        <h1>VRS <span>CENTER</span></h1>
-        <p>Your central place for application information and settings.</p>
-      </div>
+    <!-- SPEED -->
+
+    <section class="page hidden" id="page-speed">
+
+      <div class="section-title">SPEED SETTINGS</div>
 
       <div class="card">
-        <div class="card-title">
-          <div class="card-icon">◈</div>
-          <div><h3>Application Status</h3><p>Application information</p></div>
+
+        <div class="card-title">Select Preset</div>
+
+        <div class="card-description">
+          Select a display preset. This does not change actual device speed.
         </div>
-        <div class="info-row"><span>Application</span><span>VANTA PROXY</span></div>
-        <div class="info-row"><span>Interface</span><span style="color:var(--green)">Ready</span></div>
-        <div class="info-row"><span>Key Validation</span><span>Online</span></div>
+
+        <div class="option-grid" id="speedOptions">
+
+          <button class="option-btn active" data-speed="X2">
+            SPEED X2
+          </button>
+
+          <button class="option-btn" data-speed="X3">
+            SPEED X3
+          </button>
+
+          <button class="option-btn" data-speed="X5">
+            SPEED X5
+          </button>
+
+          <button class="option-btn" data-speed="NORMAL">
+            NORMAL
+          </button>
+
+        </div>
+
+        <div class="account-line">
+          <span>SELECTED PRESET</span>
+          <strong id="selectedSpeed">X2</strong>
+        </div>
+
       </div>
 
-      <div class="notice">
-        Aim Edit, ESP and Speed are interface options only. They are not connected to the game.
+
+      <div class="section-title">MOD PC UID</div>
+
+      <div class="card">
+
+        <div class="card-title">UID Display</div>
+
+        <div class="card-description">
+          Enter a UID for display inside this interface.
+        </div>
+
+        <input
+          type="text"
+          id="pcUid"
+          placeholder="Enter UID"
+          maxlength="100"
+        >
+
+        <button
+          class="primary-btn"
+          id="saveUid"
+          style="margin-top:12px"
+        >
+          SAVE UID
+        </button>
+
+        <div class="message" id="uidMessage"></div>
+
       </div>
+
     </section>
+
 
     <!-- ACCOUNT -->
-    <section class="page" id="account">
-      <div class="account-mark">V</div>
-      <div class="account-name">VANTA PROXY</div>
-      <div class="account-caption">ACCOUNT & APPLICATION</div>
+
+    <section class="page hidden" id="page-account">
+
+      <div class="section-title">ACCOUNT</div>
 
       <div class="card">
-        <div class="info-row"><span>Application</span><span>VANTA PROXY</span></div>
-        <div class="info-row"><span>Activation</span><span id="accountActivation">Not activated</span></div>
-        <div class="info-row"><span>Device ID</span><span>Generated automatically</span></div>
-        <div class="info-row"><span>Version</span><span>1.0.0</span></div>
-        <div class="info-row"><span>Expires</span><span id="accountExpiry">—</span></div>
+
+        <div class="card-title">License Information</div>
+
+        <div class="account-line">
+          <span>LICENSE STATUS</span>
+          <strong style="color:var(--green)">VERIFIED</strong>
+        </div>
+
+        <div class="account-line">
+          <span>LICENSE KEY</span>
+          <strong id="accountKey">Not available</strong>
+        </div>
+
+        <div class="account-line">
+          <span>LICENSE EXPIRATION</span>
+          <strong id="accountExpiry">Not provided</strong>
+        </div>
+
+        <div class="account-line">
+          <span>DEVICE ID</span>
+          <strong id="accountDevice">Not available</strong>
+        </div>
+
+        <button
+          class="danger-btn"
+          id="logoutBtn"
+          style="width:100%;margin-top:18px"
+        >
+          REMOVE SAVED LICENSE
+        </button>
+
+        <div class="message">
+          Removing the saved key will return you to the license screen.
+          It does not delete or deactivate the key on the server.
+        </div>
+
       </div>
 
-      <div class="section-heading">
-        <h2>LICENSE</h2><span>ACCOUNT</span>
-      </div>
-
-      <div class="card">
-        <div class="info-row"><span>License status</span><span id="accountLicenseStatus">Not activated</span></div>
-        <button class="action-btn" id="recheckKey">CHECK LICENSE AGAIN</button>
-        <button class="action-btn" id="logoutKey" style="background:#182334">LOG OUT</button>
-      </div>
     </section>
 
   </main>
 
+
+  <!-- BOTTOM NAVIGATION -->
+
   <nav class="bottom-nav">
-    <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span><span>Home</span></button>
-    <button class="nav-btn" data-page="vrs"><span class="nav-icon">◈</span><span>VRS</span></button>
-    <button class="nav-btn" data-page="account"><span class="nav-icon">◎</span><span>Account</span></button>
+
+    <button class="nav-btn active" data-page="home">
+      <span class="nav-icon">⌂</span>
+      HOME
+    </button>
+
+    <button class="nav-btn" data-page="aim">
+      <span class="nav-icon">◎</span>
+      AIM
+    </button>
+
+    <button class="nav-btn" data-page="esp">
+      <span class="nav-icon">◉</span>
+      ESP
+    </button>
+
+    <button class="nav-btn" data-page="account">
+      <span class="nav-icon">◌</span>
+      ACCOUNT
+    </button>
+
   </nav>
+
 </div>
 
-<div class="toast" id="toast"></div>
 
 <script>
 "use strict";
 
-/*
- * Public validation endpoint from your Replit project.
- * The endpoint must accept POST JSON:
- * { "key": "...", "deviceId": "..." }
- */
+/* =========================================
+   LICENSE API
+========================================= */
+
 const VALIDATION_URL =
   "https://vanta-proxy-key-manager--kglokodebraw.replit.app/api/keys/validate";
 
-const gate = document.getElementById("licenseGate");
-const licenseForm = document.getElementById("licenseForm");
-const licenseInput = document.getElementById("licenseInput");
-const licenseSubmit = document.getElementById("licenseSubmit");
-const licenseMessage = document.getElementById("licenseMessage");
-const accountActivation = document.getElementById("accountActivation");
-const accountLicenseStatus = document.getElementById("accountLicenseStatus");
-const accountExpiry = document.getElementById("accountExpiry");
-
-let currentLicense = null;
-let toastTimer;
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
-}
-
-function setLicenseMessage(message, type = "") {
-  licenseMessage.textContent = message;
-  licenseMessage.className = type;
-}
+const LICENSE_STORAGE_KEY = "vanta_proxy_license";
 
 /*
- * Generate a stable random installation identifier.
- * This is an installation ID, not a guaranteed hardware identifier.
- * localStorage is used here only as a basic persistence mechanism,
- * not as secure iOS Keychain storage.
- */
+  This ID identifies this installation.
+  It is not a secure hardware identifier.
+*/
 function getDeviceId() {
-  const storageName = "vanta_installation_id_v1";
+  const storageKey = "vanta_proxy_device_id";
 
-  try {
-    let id = localStorage.getItem(storageName);
+  let deviceId = localStorage.getItem(storageKey);
 
-    if (!id) {
-      if (crypto.randomUUID) {
-        id = crypto.randomUUID();
-      } else {
-        id = "vanta-" + Date.now().toString(36) + "-" +
-          Math.random().toString(36).slice(2) +
-          Math.random().toString(36).slice(2);
-      }
-
-      localStorage.setItem(storageName, id);
+  if (!deviceId) {
+    if (window.crypto && crypto.randomUUID) {
+      deviceId = crypto.randomUUID();
+    } else {
+      deviceId =
+        "device-" +
+        Date.now().toString(36) +
+        "-" +
+        Math.random().toString(36).slice(2);
     }
 
-    return id;
-  } catch (error) {
-    throw new Error("Device storage is unavailable. Please reopen the app.");
+    localStorage.setItem(storageKey, deviceId);
   }
+
+  return deviceId;
 }
 
-function reasonMessage(reason) {
+const deviceId = getDeviceId();
+
+const licenseGate = document.getElementById("licenseGate");
+const licenseForm = document.getElementById("licenseForm");
+const licenseInput = document.getElementById("licenseKey");
+const licenseMessage = document.getElementById("licenseMessage");
+const activateBtn = document.getElementById("activateBtn");
+
+const app = document.getElementById("app");
+
+let currentLicense = null;
+let currentExpiry = null;
+
+
+function showLicenseMessage(message, type = "") {
+  licenseMessage.textContent = message;
+  licenseMessage.className = "message " + type;
+}
+
+
+function getReasonMessage(reason) {
   const messages = {
     invalid: "This license key is invalid.",
     banned: "This license key has been banned.",
     expired: "This license key has expired.",
-    device_limit: "This license has reached its device limit.",
-    valid: "License verified."
+    device_limit: "The device limit has been reached.",
+    valid: "License verified successfully."
   };
 
-  return messages[reason] || "The server could not validate this key.";
+  return messages[reason] || "License verification failed.";
 }
 
-function showApplication(data, key) {
-  currentLicense = { key, data };
-  gate.classList.add("hidden");
-
-  accountActivation.textContent = "Activated";
-  accountLicenseStatus.textContent = "Valid";
-  accountLicenseStatus.style.color = "var(--green)";
-
-  if (data.expiresAt) {
-    const date = new Date(data.expiresAt);
-    accountExpiry.textContent = Number.isNaN(date.getTime())
-      ? "Unknown"
-      : date.toLocaleString();
-  } else {
-    accountExpiry.textContent = "Not provided";
-  }
-}
-
-function lockApplication(message) {
-  currentLicense = null;
-  gate.classList.remove("hidden");
-  accountActivation.textContent = "Not activated";
-  accountLicenseStatus.textContent = "Not activated";
-  accountLicenseStatus.style.color = "var(--red)";
-  accountExpiry.textContent = "—";
-  setLicenseMessage(message, "error");
-}
 
 async function validateLicense(key) {
-  const deviceId = getDeviceId();
-
   const response = await fetch(VALIDATION_URL, {
     method: "POST",
+
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
     },
+
     body: JSON.stringify({
       key: key,
       deviceId: deviceId
-    })
+    }),
+
+    cache: "no-store"
   });
 
-  let data;
-
-  try {
-    data = await response.json();
-  } catch {
-    throw new Error("The server returned an unreadable response.");
-  }
-
   if (!response.ok) {
-    throw new Error(
-      data.message ||
-      data.error ||
-      "The validation server returned HTTP " + response.status + "."
-    );
+    throw new Error("License server returned HTTP " + response.status);
   }
 
-  if (typeof data.valid !== "boolean") {
-    throw new Error("The server response does not match the expected format.");
-  }
-
-  if (!data.valid) {
-    const error = new Error(reasonMessage(data.reason));
-    error.licenseRejected = true;
-    throw error;
-  }
-
-  return data;
+  return await response.json();
 }
 
-licenseForm.addEventListener("submit", async event => {
+
+function openApplication(result, key) {
+  currentLicense = key;
+  currentExpiry = result.expiresAt || null;
+
+  licenseGate.classList.add("hidden");
+  app.classList.remove("hidden");
+
+  document.getElementById("accountKey").textContent = key;
+
+  document.getElementById("accountExpiry").textContent =
+    currentExpiry || "Not provided";
+
+  document.getElementById("accountDevice").textContent = deviceId;
+}
+
+
+async function activateLicense(key, saveKey = true) {
+  const trimmedKey = key.trim();
+
+  if (!trimmedKey) {
+    showLicenseMessage("Please enter your license key.", "error");
+    return false;
+  }
+
+  activateBtn.disabled = true;
+  activateBtn.textContent = "VERIFYING...";
+  showLicenseMessage("Contacting license server...");
+
+  try {
+    const result = await validateLicense(trimmedKey);
+
+    if (result.valid !== true) {
+      if (saveKey) {
+        localStorage.removeItem(LICENSE_STORAGE_KEY);
+      }
+
+      showLicenseMessage(
+        getReasonMessage(result.reason),
+        "error"
+      );
+
+      return false;
+    }
+
+    if (saveKey) {
+      localStorage.setItem(LICENSE_STORAGE_KEY, trimmedKey);
+    }
+
+    showLicenseMessage("License verified.", "success");
+
+    openApplication(result, trimmedKey);
+
+    return true;
+
+  } catch (error) {
+    console.error("License verification error:", error);
+
+    showLicenseMessage(
+      "Could not verify the license. Check your internet connection and try again.",
+      "error"
+    );
+
+    return false;
+
+  } finally {
+    activateBtn.disabled = false;
+    activateBtn.textContent = "ACTIVATE LICENSE";
+  }
+}
+
+
+licenseForm.addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  const key = licenseInput.value.trim();
-
-  if (!key) {
-    setLicenseMessage("Please enter your license key.", "error");
-    return;
-  }
-
-  licenseSubmit.disabled = true;
-  licenseSubmit.textContent = "VERIFYING...";
-  setLicenseMessage("Connecting to the license server...");
-
-  try {
-    const data = await validateLicense(key);
-
-    /*
-     * Keep only the key needed for revalidation.
-     * It is stored in localStorage, which is not secure storage.
-     * A later native Keychain integration should replace this.
-     */
-    localStorage.setItem("vanta_saved_key_v1", key);
-
-    setLicenseMessage("License verified. Opening VANTA PROXY...", "success");
-    showApplication(data, key);
-    showToast("License verified successfully.");
-  } catch (error) {
-    lockApplication(
-      error.licenseRejected
-        ? error.message
-        : "Could not verify the key. Check your connection and try again. " +
-          error.message
-    );
-  } finally {
-    licenseSubmit.disabled = false;
-    licenseSubmit.textContent = "ACTIVATE KEY";
-  }
+  await activateLicense(licenseInput.value, true);
 });
 
-/* Show/hide the key */
-document.getElementById("toggleKeyVisibility").addEventListener("click", () => {
-  const button = document.getElementById("toggleKeyVisibility");
-  const visible = licenseInput.type === "text";
-  licenseInput.type = visible ? "password" : "text";
-  button.textContent = visible ? "◉" : "◎";
-});
 
-/* Revalidate on every launch; never unlock using cache alone. */
-async function revalidateSavedLicense() {
-  let savedKey = null;
+/*
+  Revalidate a saved key when the app opens.
+  If the server cannot be reached, access remains locked.
+*/
+async function checkSavedLicense() {
+  app.classList.add("hidden");
+  licenseGate.classList.remove("hidden");
 
-  try {
-    savedKey = localStorage.getItem("vanta_saved_key_v1");
-  } catch {
-    lockApplication("Storage is unavailable. Please enter your license key.");
-    return;
-  }
+  const savedKey = localStorage.getItem(LICENSE_STORAGE_KEY);
 
   if (!savedKey) {
-    lockApplication("Enter your license key to unlock the application.");
     return;
   }
 
   licenseInput.value = savedKey;
-  licenseSubmit.disabled = true;
-  licenseSubmit.textContent = "VERIFYING...";
-  setLicenseMessage("Checking your saved license with the server...");
+
+  activateBtn.disabled = true;
+  activateBtn.textContent = "VERIFYING...";
+  showLicenseMessage("Checking saved license...");
 
   try {
-    const data = await validateLicense(savedKey);
-    showApplication(data, savedKey);
-  } catch (error) {
-    if (error.licenseRejected) {
-      try {
-        localStorage.removeItem("vanta_saved_key_v1");
-      } catch {}
-      licenseInput.value = "";
-      lockApplication(error.message);
-    } else {
-      /*
-       * Fail closed: no access if the server cannot be reached.
-       */
-      lockApplication(
-        "Unable to reach the license server. Connect to the internet and try again."
-      );
+    const result = await validateLicense(savedKey);
+
+    if (result.valid === true) {
+      openApplication(result, savedKey);
+      return;
     }
+
+    localStorage.removeItem(LICENSE_STORAGE_KEY);
+
+    showLicenseMessage(
+      getReasonMessage(result.reason),
+      "error"
+    );
+
+  } catch (error) {
+    console.error("Saved license verification error:", error);
+
+    showLicenseMessage(
+      "Unable to contact the license server. Access remains locked. Check your connection and try again.",
+      "error"
+    );
+
   } finally {
-    licenseSubmit.disabled = false;
-    licenseSubmit.textContent = "ACTIVATE KEY";
+    activateBtn.disabled = false;
+    activateBtn.textContent = "ACTIVATE LICENSE";
   }
 }
 
-document.getElementById("recheckKey").addEventListener("click", async () => {
-  if (!currentLicense) {
-    lockApplication("Please activate your license first.");
+
+/* =========================================
+   INJECT BUTTON
+========================================= */
+
+/*
+  This is a visual demonstration only.
+  It does not establish a network connection,
+  create a tunnel, or inject anything into a process.
+*/
+
+const injectBtn = document.getElementById("injectBtn");
+const injectText = document.getElementById("injectText");
+const injectStatus = document.getElementById("injectStatus");
+const serverInfo = document.getElementById("serverInfo");
+
+let injectTimer = null;
+
+injectBtn.addEventListener("click", function() {
+  if (injectBtn.disabled) {
     return;
   }
 
-  gate.classList.remove("hidden");
-  await revalidateSavedLicense();
+  injectBtn.disabled = true;
+  serverInfo.classList.add("hidden");
+
+  injectText.innerHTML =
+    '<span class="inject-spinner"></span>INJECTING...';
+
+  injectStatus.textContent = "Initializing interface...";
+
+  let elapsed = 0;
+
+  injectTimer = setInterval(function() {
+    elapsed++;
+
+    if (elapsed === 1) {
+      injectStatus.textContent = "Preparing configuration...";
+    } else if (elapsed === 2) {
+      injectStatus.textContent = "Finishing demonstration...";
+    }
+
+    if (elapsed >= 3) {
+      clearInterval(injectTimer);
+      injectTimer = null;
+
+      injectText.textContent = "INJECT";
+      injectStatus.textContent = "Demo completed";
+
+      serverInfo.classList.remove("hidden");
+
+      injectBtn.disabled = false;
+    }
+  }, 1000);
 });
 
-document.getElementById("logoutKey").addEventListener("click", () => {
-  try {
-    localStorage.removeItem("vanta_saved_key_v1");
-  } catch {}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function showPage(pageName) {
+  document.querySelectorAll(".page").forEach(function(page) {
+    page.classList.add("hidden");
+  });
+
+  const selectedPage = document.getElementById("page-" + pageName);
+
+  if (selectedPage) {
+    selectedPage.classList.remove("hidden");
+  }
+
+  document.querySelectorAll(".nav-btn").forEach(function(button) {
+    button.classList.toggle(
+      "active",
+      button.dataset.page === pageName
+    );
+  });
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+document.querySelectorAll("[data-page]").forEach(function(button) {
+  button.addEventListener("click", function() {
+    showPage(button.dataset.page);
+  });
+});
+
+
+/* =========================================
+   SPEED PRESETS
+========================================= */
+
+const speedButtons = document.querySelectorAll("[data-speed]");
+const selectedSpeed = document.getElementById("selectedSpeed");
+
+speedButtons.forEach(function(button) {
+  button.addEventListener("click", function() {
+    speedButtons.forEach(function(item) {
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    selectedSpeed.textContent = button.dataset.speed;
+
+    localStorage.setItem(
+      "vanta_proxy_speed_preset",
+      button.dataset.speed
+    );
+  });
+});
+
+
+const savedSpeed = localStorage.getItem("vanta_proxy_speed_preset");
+
+if (savedSpeed) {
+  speedButtons.forEach(function(button) {
+    const active = button.dataset.speed === savedSpeed;
+
+    button.classList.toggle("active", active);
+
+    if (active) {
+      selectedSpeed.textContent = savedSpeed;
+    }
+  });
+}
+
+
+/* =========================================
+   ESP COLOR
+========================================= */
+
+const espColor = document.getElementById("espColor");
+
+const savedColor = localStorage.getItem("vanta_proxy_esp_color");
+
+if (savedColor) {
+  espColor.value = savedColor;
+}
+
+espColor.addEventListener("input", function() {
+  localStorage.setItem("vanta_proxy_esp_color", espColor.value);
+});
+
+
+/* =========================================
+   PC UID DISPLAY
+========================================= */
+
+const pcUid = document.getElementById("pcUid");
+const uidMessage = document.getElementById("uidMessage");
+
+pcUid.value = localStorage.getItem("vanta_proxy_pc_uid") || "";
+
+document.getElementById("saveUid").addEventListener("click", function() {
+  const value = pcUid.value.trim();
+
+  localStorage.setItem("vanta_proxy_pc_uid", value);
+
+  uidMessage.textContent = "UID saved on this device.";
+  uidMessage.className = "message success";
+});
+
+
+/* =========================================
+   REMOVE SAVED LICENSE
+========================================= */
+
+document.getElementById("logoutBtn").addEventListener("click", function() {
+  const confirmed = confirm(
+    "Remove the saved license from this device?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  localStorage.removeItem(LICENSE_STORAGE_KEY);
+
+  currentLicense = null;
+  currentExpiry = null;
+
+  app.classList.add("hidden");
+  licenseGate.classList.remove("hidden");
 
   licenseInput.value = "";
-  lockApplication("You have logged out. Enter your license key to continue.");
+
+  showLicenseMessage("Enter your license key to continue.");
 });
 
-/* Fixed bottom navigation */
-document.querySelectorAll(".nav-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    const target = button.dataset.page;
 
-    document.querySelectorAll(".nav-btn").forEach(item => {
-      item.classList.toggle("active", item === button);
-    });
+/* =========================================
+   STARTUP
+========================================= */
 
-    document.querySelectorAll(".page").forEach(page => {
-      page.classList.toggle("active", page.id === target);
-      if (page.id === target) page.scrollTop = 0;
-    });
-  });
-});
+checkSavedLicense();
 
-/* Interface toggles only */
-document.querySelectorAll(".toggle").forEach(button => {
-  button.addEventListener("click", () => {
-    const enabled = button.classList.toggle("on");
-    button.setAttribute("aria-pressed", String(enabled));
-  });
-});
-
-document.querySelectorAll(".speed-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".speed-btn").forEach(item => {
-      item.classList.toggle("selected", item === button);
-    });
-    showToast(button.dataset.speed + " selected.");
-  });
-});
-
-document.getElementById("saveUid").addEventListener("click", () => {
-  const uid = document.getElementById("uid").value.trim();
-
-  if (!uid) {
-    showToast("Please enter your UID first.");
-    return;
-  }
-
-  document.getElementById("uidNotice").textContent =
-    "UID entered for this session: " + uid;
-
-  showToast("UID saved for this session.");
-});
-
-/* Best-effort zoom prevention on iOS */
-document.addEventListener("gesturestart", event => {
-  event.preventDefault();
-}, { passive: false });
-
-document.addEventListener("gesturechange", event => {
-  event.preventDefault();
-}, { passive: false });
-
-document.addEventListener("gestureend", event => {
-  event.preventDefault();
-}, { passive: false });
-
-/* Begin locked; unlock only after successful server validation. */
-lockApplication("Checking activation...");
-revalidateSavedLicense();
 </script>
 
 </body>
