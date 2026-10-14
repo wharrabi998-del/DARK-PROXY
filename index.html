@@ -474,7 +474,6 @@ input[type="color"] {
   line-height:1.6;
 }
 
-/* INJECT RESULT: ONLY THE THREE REQUESTED LINES */
 .inject-info.result-only {
   padding:4px 12px;
 }
@@ -498,6 +497,109 @@ input[type="color"] {
 
 .inject-info.result-only .demo-note {
   display:none;
+}
+
+/* INTERNET IP INPUT MODAL */
+#ipInputGate {
+  position:fixed;
+  inset:0;
+  z-index:100001;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:rgba(0,0,0,.88);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+#ipInputGate[hidden] {
+  display:none !important;
+}
+
+.ip-input-box {
+  width:100%;
+  max-width:360px;
+  padding:24px 19px;
+  border:1px solid rgba(64,151,255,.3);
+  border-radius:18px;
+  background:linear-gradient(145deg,#101927,#080d15);
+  text-align:center;
+  box-shadow:0 15px 55px rgba(0,0,0,.4);
+}
+
+.ip-input-icon {
+  width:55px;
+  height:55px;
+  margin:0 auto 17px;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  background:rgba(22,140,255,.14);
+  color:var(--blue2);
+  font-size:29px;
+}
+
+.ip-input-box h2 {
+  margin:0;
+  font-size:20px;
+  letter-spacing:1.5px;
+}
+
+.ip-input-box p {
+  margin:12px 0 20px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+#internetIpInput {
+  width:100%;
+  height:48px;
+  padding:0 12px;
+  border:1px solid #26364b;
+  border-radius:11px;
+  outline:none;
+  background:#080d15;
+  color:white;
+  font-size:14px;
+  user-select:text;
+  -webkit-user-select:text;
+}
+
+#internetIpInput:focus {
+  border-color:var(--blue);
+}
+
+#ipInputMessage {
+  min-height:18px;
+  margin-top:10px;
+  color:var(--red);
+  font-size:11px;
+  line-height:1.5;
+}
+
+#continueInjectBtn,
+#cancelInjectBtn {
+  width:100%;
+  height:46px;
+  border:0;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+#continueInjectBtn {
+  margin-top:7px;
+  color:white;
+  background:linear-gradient(100deg,#0874e8,#168cff);
+}
+
+#cancelInjectBtn {
+  margin-top:9px;
+  color:#a8b7cb;
+  background:#182334;
 }
 
 .account-mark {
@@ -725,6 +827,7 @@ input[type="color"] {
 
 <body>
 
+<!-- LICENSE ACTIVATION -->
 <div id="licenseGate">
   <div class="gate-box">
     <div class="gate-logo">V</div>
@@ -747,6 +850,7 @@ input[type="color"] {
           spellcheck="false"
           required
         >
+
         <button
           id="toggleKeyVisibility"
           type="button"
@@ -767,6 +871,7 @@ input[type="color"] {
   </div>
 </div>
 
+<!-- MAIN APPLICATION -->
 <div class="app">
 
   <header class="topbar">
@@ -777,6 +882,7 @@ input[type="color"] {
         <div class="brand-sub">CONTROL CENTER</div>
       </div>
     </div>
+
     <div class="status">
       <span class="status-dot"></span>
       <span>APP READY</span>
@@ -785,7 +891,9 @@ input[type="color"] {
 
   <main class="content">
 
+    <!-- HOME -->
     <section class="page active" id="home">
+
       <div class="hero">
         <div class="hero-label">VANTA / CONTROL PANEL</div>
         <h1>YOUR CONTROL.<br><span>YOUR SETTINGS.</span></h1>
@@ -793,32 +901,64 @@ input[type="color"] {
       </div>
 
       <div class="section-heading">
-        <h2>AIM EDIT</h2><span>SETTINGS</span>
+        <h2>AIM EDIT</h2>
+        <span>SETTINGS</span>
       </div>
 
       <div class="card" id="aimEditCard">
         <div class="card-title">
           <div class="card-icon">⌖</div>
-          <div><h3>Aim Edit</h3><p>Configuration options</p></div>
+          <div>
+            <h3>Aim Edit</h3>
+            <p>Configuration options</p>
+          </div>
         </div>
 
-        <div class="row"><span class="row-label">Aim Drag</span><button class="toggle" aria-label="Aim Drag" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Body</span><button class="toggle" aria-label="Aim Body" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Neck</span><button class="toggle" aria-label="Aim Neck" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Chest</span><button class="toggle" aria-label="Aim Chest" aria-pressed="false"></button></div>
-        <div class="row"><span class="row-label">Aim Body - HS</span><button class="toggle" aria-label="Aim Body HS" aria-pressed="false"></button></div>
+        <div class="row">
+          <span class="row-label">Aim Drag</span>
+          <button class="toggle" aria-label="Aim Drag" aria-pressed="false"></button>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Aim Body</span>
+          <button class="toggle" aria-label="Aim Body" aria-pressed="false"></button>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Aim Neck</span>
+          <button class="toggle" aria-label="Aim Neck" aria-pressed="false"></button>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Aim Chest</span>
+          <button class="toggle" aria-label="Aim Chest" aria-pressed="false"></button>
+        </div>
+
+        <div class="row">
+          <span class="row-label">Aim Body - HS</span>
+          <button class="toggle" aria-label="Aim Body HS" aria-pressed="false"></button>
+        </div>
       </div>
 
       <div class="section-heading">
-        <h2>ESP SETTINGS</h2><span>VISUAL OPTIONS</span>
+        <h2>ESP SETTINGS</h2>
+        <span>VISUAL OPTIONS</span>
       </div>
 
       <div class="card">
         <div class="card-title">
           <div class="card-icon">◈</div>
-          <div><h3>ESP</h3><p>Display configuration</p></div>
+          <div>
+            <h3>ESP</h3>
+            <p>Display configuration</p>
+          </div>
         </div>
-        <div class="row"><span class="row-label">3D Weapon</span><button class="toggle" aria-label="3D Weapon" aria-pressed="false"></button></div>
+
+        <div class="row">
+          <span class="row-label">3D Weapon</span>
+          <button class="toggle" aria-label="3D Weapon" aria-pressed="false"></button>
+        </div>
+
         <div class="color-row">
           <label for="espColor">ESP Color</label>
           <input type="color" id="espColor" value="#168cff">
@@ -826,14 +966,19 @@ input[type="color"] {
       </div>
 
       <div class="section-heading">
-        <h2>SPEED</h2><span>SELECT OPTION</span>
+        <h2>SPEED</h2>
+        <span>SELECT OPTION</span>
       </div>
 
       <div class="card">
         <div class="card-title">
           <div class="card-icon">ϟ</div>
-          <div><h3>Speed Settings</h3><p>Choose an interface option</p></div>
+          <div>
+            <h3>Speed Settings</h3>
+            <p>Choose an interface option</p>
+          </div>
         </div>
+
         <div class="speed-grid">
           <button class="speed-btn" data-speed="X2">X2</button>
           <button class="speed-btn" data-speed="X3">X3</button>
@@ -842,20 +987,37 @@ input[type="color"] {
       </div>
 
       <div class="section-heading">
-        <h2>MOD PC</h2><span>PLAYER INFORMATION</span>
+        <h2>MOD PC</h2>
+        <span>PLAYER INFORMATION</span>
       </div>
 
       <div class="card">
         <div class="card-title">
           <div class="card-icon">⌘</div>
-          <div><h3>MOD PC</h3><p>Enter your UID</p></div>
+          <div>
+            <h3>MOD PC</h3>
+            <p>Enter your UID</p>
+          </div>
         </div>
-        <input class="input" id="uid" type="text" placeholder="Enter UID" autocomplete="off">
+
+        <input
+          class="input"
+          id="uid"
+          type="text"
+          placeholder="Enter UID"
+          autocomplete="off"
+        >
+
         <button class="action-btn" id="saveUid">SAVE UID</button>
-        <div class="notice" id="uidNotice">UID is kept only for this session.</div>
+
+        <div class="notice" id="uidNotice">
+          UID is kept only for this session.
+        </div>
       </div>
 
+      <!-- INJECT -->
       <div class="inject-card">
+
         <button class="inject-button" id="injectBtn" type="button">
           <span id="injectText">INJECT</span>
         </button>
@@ -878,12 +1040,16 @@ input[type="color"] {
             <span class="server-value">Status: CONNECTED</span>
           </div>
         </div>
+
       </div>
     </section>
 
+    <!-- VRS -->
     <section class="page" id="vrs">
+
       <div class="section-heading" style="margin-top:4px">
-        <h2>VRS CENTER</h2><span>VANTA</span>
+        <h2>VRS CENTER</h2>
+        <span>VANTA</span>
       </div>
 
       <div class="hero">
@@ -895,49 +1061,146 @@ input[type="color"] {
       <div class="card">
         <div class="card-title">
           <div class="card-icon">◈</div>
-          <div><h3>Application Status</h3><p>Application information</p></div>
+          <div>
+            <h3>Application Status</h3>
+            <p>Application information</p>
+          </div>
         </div>
-        <div class="info-row"><span>Application</span><span>VANTA PROXY</span></div>
-        <div class="info-row"><span>Interface</span><span style="color:var(--green)">Ready</span></div>
-        <div class="info-row"><span>Key Validation</span><span>Online</span></div>
+
+        <div class="info-row">
+          <span>Application</span>
+          <span>VANTA PROXY</span>
+        </div>
+
+        <div class="info-row">
+          <span>Interface</span>
+          <span style="color:var(--green)">Ready</span>
+        </div>
+
+        <div class="info-row">
+          <span>Key Validation</span>
+          <span>Online</span>
+        </div>
       </div>
 
       <div class="notice">
-        Aim Edit, ESP and Speed are interface options only. They are not connected to the game.
+        Aim Edit, ESP and Speed are interface options only.
+        They are not connected to the game.
       </div>
+
     </section>
 
+    <!-- ACCOUNT -->
     <section class="page" id="account">
+
       <div class="account-mark">V</div>
       <div class="account-name">VANTA PROXY</div>
       <div class="account-caption">ACCOUNT & APPLICATION</div>
 
       <div class="card">
-        <div class="info-row"><span>Application</span><span>VANTA PROXY</span></div>
-        <div class="info-row"><span>Activation</span><span id="accountActivation">Not activated</span></div>
-        <div class="info-row"><span>Device ID</span><span>Generated automatically</span></div>
-        <div class="info-row"><span>Version</span><span>1.0.0</span></div>
-        <div class="info-row"><span>Expires</span><span id="accountExpiry">—</span></div>
+        <div class="info-row">
+          <span>Application</span>
+          <span>VANTA PROXY</span>
+        </div>
+
+        <div class="info-row">
+          <span>Activation</span>
+          <span id="accountActivation">Not activated</span>
+        </div>
+
+        <div class="info-row">
+          <span>Device ID</span>
+          <span>Generated automatically</span>
+        </div>
+
+        <div class="info-row">
+          <span>Version</span>
+          <span>1.0.0</span>
+        </div>
+
+        <div class="info-row">
+          <span>Expires</span>
+          <span id="accountExpiry">—</span>
+        </div>
       </div>
 
       <div class="section-heading">
-        <h2>LICENSE</h2><span>ACCOUNT</span>
+        <h2>LICENSE</h2>
+        <span>ACCOUNT</span>
       </div>
 
       <div class="card">
-        <div class="info-row"><span>License status</span><span id="accountLicenseStatus">Not activated</span></div>
-        <button class="action-btn" id="recheckKey">CHECK LICENSE AGAIN</button>
-        <button class="action-btn" id="logoutKey" style="background:#182334">LOG OUT</button>
+        <div class="info-row">
+          <span>License status</span>
+          <span id="accountLicenseStatus">Not activated</span>
+        </div>
+
+        <button class="action-btn" id="recheckKey">
+          CHECK LICENSE AGAIN
+        </button>
+
+        <button class="action-btn" id="logoutKey" style="background:#182334">
+          LOG OUT
+        </button>
       </div>
+
     </section>
 
   </main>
 
   <nav class="bottom-nav">
-    <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span><span>Home</span></button>
-    <button class="nav-btn" data-page="vrs"><span class="nav-icon">◈</span><span>VRS</span></button>
-    <button class="nav-btn" data-page="account"><span class="nav-icon">◎</span><span>Account</span></button>
+    <button class="nav-btn active" data-page="home">
+      <span class="nav-icon">⌂</span>
+      <span>Home</span>
+    </button>
+
+    <button class="nav-btn" data-page="vrs">
+      <span class="nav-icon">◈</span>
+      <span>VRS</span>
+    </button>
+
+    <button class="nav-btn" data-page="account">
+      <span class="nav-icon">◎</span>
+      <span>Account</span>
+    </button>
   </nav>
+
+</div>
+
+<!-- INTERNET IP INPUT MODAL -->
+<div id="ipInputGate" hidden>
+  <div class="ip-input-box">
+
+    <div class="ip-input-icon">⌁</div>
+
+    <h2>INTERNET IP</h2>
+
+    <p>
+      Enter your current internet IP address.<br>
+      Do NOT enter the proxy IP.
+    </p>
+
+    <input
+      id="internetIpInput"
+      type="text"
+      placeholder="Enter your internet IP"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      aria-label="Your internet IP address"
+    >
+
+    <div id="ipInputMessage" aria-live="polite"></div>
+
+    <button id="continueInjectBtn" type="button">
+      CONTINUE
+    </button>
+
+    <button id="cancelInjectBtn" type="button">
+      CANCEL
+    </button>
+
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -945,6 +1208,7 @@ input[type="color"] {
 <script>
 "use strict";
 
+/* LICENSE CONFIGURATION */
 const VALIDATION_URL =
   "https://vanta-proxy-key-manager--kglokodebraw.replit.app/api/keys/validate";
 
@@ -953,6 +1217,7 @@ const licenseForm = document.getElementById("licenseForm");
 const licenseInput = document.getElementById("licenseInput");
 const licenseSubmit = document.getElementById("licenseSubmit");
 const licenseMessage = document.getElementById("licenseMessage");
+
 const accountActivation = document.getElementById("accountActivation");
 const accountLicenseStatus = document.getElementById("accountLicenseStatus");
 const accountExpiry = document.getElementById("accountExpiry");
@@ -960,19 +1225,27 @@ const accountExpiry = document.getElementById("accountExpiry");
 let currentLicense = null;
 let toastTimer;
 
+/* TOAST */
 function showToast(message) {
   const toast = document.getElementById("toast");
+
   toast.textContent = message;
   toast.classList.add("show");
+
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
 }
 
+/* LICENSE MESSAGES */
 function setLicenseMessage(message, type = "") {
   licenseMessage.textContent = message;
   licenseMessage.className = type;
 }
 
+/* DEVICE ID */
 function getDeviceId() {
   const storageName = "vanta_installation_id_v1";
 
@@ -980,10 +1253,11 @@ function getDeviceId() {
     let id = localStorage.getItem(storageName);
 
     if (!id) {
-      if (crypto.randomUUID) {
+      if (typeof crypto.randomUUID === "function") {
         id = crypto.randomUUID();
       } else {
-        id = "vanta-" + Date.now().toString(36) + "-" +
+        id = "vanta-" +
+          Date.now().toString(36) + "-" +
           Math.random().toString(36).slice(2) +
           Math.random().toString(36).slice(2);
       }
@@ -992,11 +1266,15 @@ function getDeviceId() {
     }
 
     return id;
+
   } catch (error) {
-    throw new Error("Device storage is unavailable. Please reopen the app.");
+    throw new Error(
+      "Device storage is unavailable. Please reopen the app."
+    );
   }
 }
 
+/* LICENSE REJECTION REASONS */
 function reasonMessage(reason) {
   const messages = {
     invalid: "This license key is invalid.",
@@ -1006,11 +1284,14 @@ function reasonMessage(reason) {
     valid: "License verified."
   };
 
-  return messages[reason] || "The server could not validate this key.";
+  return messages[reason] ||
+    "The server could not validate this key.";
 }
 
+/* UNLOCK APPLICATION */
 function showApplication(data, key) {
   currentLicense = { key, data };
+
   gate.classList.add("hidden");
 
   accountActivation.textContent = "Activated";
@@ -1019,6 +1300,7 @@ function showApplication(data, key) {
 
   if (data.expiresAt) {
     const date = new Date(data.expiresAt);
+
     accountExpiry.textContent = Number.isNaN(date.getTime())
       ? "Unknown"
       : date.toLocaleString();
@@ -1027,16 +1309,21 @@ function showApplication(data, key) {
   }
 }
 
+/* LOCK APPLICATION */
 function lockApplication(message) {
   currentLicense = null;
+
   gate.classList.remove("hidden");
+
   accountActivation.textContent = "Not activated";
   accountLicenseStatus.textContent = "Not activated";
   accountLicenseStatus.style.color = "var(--red)";
   accountExpiry.textContent = "—";
+
   setLicenseMessage(message, "error");
 }
 
+/* VALIDATE LICENSE WITH SERVER */
 async function validateLicense(key) {
   const deviceId = getDeviceId();
 
@@ -1057,19 +1344,24 @@ async function validateLicense(key) {
   try {
     data = await response.json();
   } catch {
-    throw new Error("The server returned an unreadable response.");
+    throw new Error(
+      "The server returned an unreadable response."
+    );
   }
 
   if (!response.ok) {
     throw new Error(
       data.message ||
       data.error ||
-      "The validation server returned HTTP " + response.status + "."
+      "The validation server returned HTTP " +
+      response.status + "."
     );
   }
 
   if (typeof data.valid !== "boolean") {
-    throw new Error("The server response does not match the expected format.");
+    throw new Error(
+      "The server response does not match the expected format."
+    );
   }
 
   if (!data.valid) {
@@ -1081,18 +1373,23 @@ async function validateLicense(key) {
   return data;
 }
 
+/* LICENSE FORM */
 licenseForm.addEventListener("submit", async event => {
   event.preventDefault();
 
   const key = licenseInput.value.trim();
 
   if (!key) {
-    setLicenseMessage("Please enter your license key.", "error");
+    setLicenseMessage(
+      "Please enter your license key.",
+      "error"
+    );
     return;
   }
 
   licenseSubmit.disabled = true;
   licenseSubmit.textContent = "VERIFYING...";
+
   setLicenseMessage("Connecting to the license server...");
 
   try {
@@ -1100,9 +1397,14 @@ licenseForm.addEventListener("submit", async event => {
 
     localStorage.setItem("vanta_saved_key_v1", key);
 
-    setLicenseMessage("License verified. Opening VANTA PROXY...", "success");
+    setLicenseMessage(
+      "License verified. Opening VANTA PROXY...",
+      "success"
+    );
+
     showApplication(data, key);
     showToast("License verified successfully.");
+
   } catch (error) {
     lockApplication(
       error.licenseRejected
@@ -1110,42 +1412,58 @@ licenseForm.addEventListener("submit", async event => {
         : "Could not verify the key. Check your connection and try again. " +
           error.message
     );
+
   } finally {
     licenseSubmit.disabled = false;
     licenseSubmit.textContent = "ACTIVATE KEY";
   }
 });
 
-document.getElementById("toggleKeyVisibility").addEventListener("click", () => {
-  const button = document.getElementById("toggleKeyVisibility");
-  const visible = licenseInput.type === "text";
-  licenseInput.type = visible ? "password" : "text";
-  button.textContent = visible ? "◉" : "◎";
-});
+/* SHOW / HIDE LICENSE KEY */
+document
+  .getElementById("toggleKeyVisibility")
+  .addEventListener("click", () => {
+    const button = document.getElementById("toggleKeyVisibility");
 
+    const visible = licenseInput.type === "text";
+
+    licenseInput.type = visible ? "password" : "text";
+    button.textContent = visible ? "◉" : "◎";
+  });
+
+/* REVALIDATE SAVED LICENSE */
 async function revalidateSavedLicense() {
   let savedKey = null;
 
   try {
     savedKey = localStorage.getItem("vanta_saved_key_v1");
   } catch {
-    lockApplication("Storage is unavailable. Please enter your license key.");
+    lockApplication(
+      "Storage is unavailable. Please enter your license key."
+    );
     return;
   }
 
   if (!savedKey) {
-    lockApplication("Enter your license key to unlock the application.");
+    lockApplication(
+      "Enter your license key to unlock the application."
+    );
     return;
   }
 
   licenseInput.value = savedKey;
   licenseSubmit.disabled = true;
   licenseSubmit.textContent = "VERIFYING...";
-  setLicenseMessage("Checking your saved license with the server...");
+
+  setLicenseMessage(
+    "Checking your saved license with the server..."
+  );
 
   try {
     const data = await validateLicense(savedKey);
+
     showApplication(data, savedKey);
+
   } catch (error) {
     if (error.licenseRejected) {
       try {
@@ -1154,37 +1472,49 @@ async function revalidateSavedLicense() {
 
       licenseInput.value = "";
       lockApplication(error.message);
+
     } else {
       lockApplication(
         "Unable to reach the license server. Connect to the internet and try again."
       );
     }
+
   } finally {
     licenseSubmit.disabled = false;
     licenseSubmit.textContent = "ACTIVATE KEY";
   }
 }
 
-document.getElementById("recheckKey").addEventListener("click", async () => {
-  if (!currentLicense) {
-    lockApplication("Please activate your license first.");
-    return;
-  }
+/* CHECK LICENSE AGAIN */
+document
+  .getElementById("recheckKey")
+  .addEventListener("click", async () => {
+    if (!currentLicense) {
+      lockApplication("Please activate your license first.");
+      return;
+    }
 
-  gate.classList.remove("hidden");
-  await revalidateSavedLicense();
-});
+    gate.classList.remove("hidden");
 
-document.getElementById("logoutKey").addEventListener("click", () => {
-  try {
-    localStorage.removeItem("vanta_saved_key_v1");
-  } catch {}
+    await revalidateSavedLicense();
+  });
 
-  licenseInput.value = "";
-  lockApplication("You have logged out. Enter your license key to continue.");
-});
+/* LOG OUT */
+document
+  .getElementById("logoutKey")
+  .addEventListener("click", () => {
+    try {
+      localStorage.removeItem("vanta_saved_key_v1");
+    } catch {}
 
-/* Bottom navigation */
+    licenseInput.value = "";
+
+    lockApplication(
+      "You have logged out. Enter your license key to continue."
+    );
+  });
+
+/* BOTTOM NAVIGATION */
 document.querySelectorAll(".nav-btn").forEach(button => {
   button.addEventListener("click", () => {
     const target = button.dataset.page;
@@ -1203,11 +1533,7 @@ document.querySelectorAll(".nav-btn").forEach(button => {
   });
 });
 
-/*
- * AIM EDIT:
- * Only one option in the Aim Edit card may be active at a time.
- * Tapping the active option again turns it off.
- */
+/* AIM EDIT: ONLY ONE OPTION CAN BE ACTIVE */
 const aimEditCard = document.getElementById("aimEditCard");
 
 aimEditCard.querySelectorAll(".toggle").forEach(button => {
@@ -1226,15 +1552,21 @@ aimEditCard.querySelectorAll(".toggle").forEach(button => {
   });
 });
 
-/* Other toggle groups remain independent. */
-document.querySelectorAll(".card:not(#aimEditCard) .toggle").forEach(button => {
-  button.addEventListener("click", () => {
-    const enabled = button.classList.toggle("on");
-    button.setAttribute("aria-pressed", String(enabled));
-  });
-});
+/* OTHER TOGGLES */
+document
+  .querySelectorAll(".card:not(#aimEditCard) .toggle")
+  .forEach(button => {
+    button.addEventListener("click", () => {
+      const enabled = button.classList.toggle("on");
 
-/* Speed: one selected option at a time. */
+      button.setAttribute(
+        "aria-pressed",
+        String(enabled)
+      );
+    });
+  });
+
+/* SPEED: SELECT ONE OPTION */
 document.querySelectorAll(".speed-btn").forEach(button => {
   button.addEventListener("click", () => {
     const wasSelected = button.classList.contains("selected");
@@ -1249,6 +1581,7 @@ document.querySelectorAll(".speed-btn").forEach(button => {
   });
 });
 
+/* SAVE UID FOR THIS SESSION */
 document.getElementById("saveUid").addEventListener("click", () => {
   const uid = document.getElementById("uid").value.trim();
 
@@ -1263,18 +1596,61 @@ document.getElementById("saveUid").addEventListener("click", () => {
   showToast("UID saved for this session.");
 });
 
-/*
- * INJECT DEMONSTRATION:
- * Displays the requested text after three seconds.
- * The displayed connection details are simulated, not a real connection.
- */
+/* INJECT ELEMENTS */
 const injectBtn = document.getElementById("injectBtn");
 const injectText = document.getElementById("injectText");
 const injectStatus = document.getElementById("injectStatus");
 const injectInfo = document.getElementById("injectInfo");
 
-let injectTimer = null;
+const ipInputGate = document.getElementById("ipInputGate");
+const internetIpInput = document.getElementById("internetIpInput");
+const ipInputMessage = document.getElementById("ipInputMessage");
+const continueInjectBtn = document.getElementById("continueInjectBtn");
+const cancelInjectBtn = document.getElementById("cancelInjectBtn");
 
+let injectTimer = null;
+let userInternetIp = "";
+
+/*
+ * Checks whether the input resembles an IPv4 or IPv6 address.
+ * This validates the format only; it does not confirm ownership.
+ */
+function isValidIpAddress(ip) {
+  const ipv4Parts = ip.split(".");
+
+  if (
+    ipv4Parts.length === 4 &&
+    ipv4Parts.every(part =>
+      /^\d{1,3}$/.test(part) &&
+      Number(part) >= 0 &&
+      Number(part) <= 255
+    )
+  ) {
+    return true;
+  }
+
+  /*
+   * IPv6 validation using the browser's URL parser.
+   * The brackets are required for an IPv6 URL host.
+   */
+  if (ip.includes(":")) {
+    try {
+      const parsed = new URL("http://[" + ip + "]/");
+
+      return parsed.hostname.length > 0 &&
+        parsed.hostname.includes(":");
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
+}
+
+/*
+ * STEP 1:
+ * Pressing INJECT opens the Internet IP input window.
+ */
 injectBtn.addEventListener("click", () => {
   if (injectBtn.disabled) return;
 
@@ -1285,9 +1661,71 @@ injectBtn.addEventListener("click", () => {
 
   clearTimeout(injectTimer);
 
+  injectInfo.hidden = true;
+  injectStatus.textContent = "";
+  ipInputMessage.textContent = "";
+
+  /*
+   * Keep the previous input if the user has entered one.
+   */
+  internetIpInput.value = userInternetIp;
+
+  ipInputGate.hidden = false;
+
+  setTimeout(() => {
+    if (!ipInputGate.hidden) {
+      internetIpInput.focus();
+    }
+  }, 100);
+});
+
+/*
+ * STEP 2:
+ * Cancel closes the window without starting INJECT.
+ */
+cancelInjectBtn.addEventListener("click", () => {
+  ipInputGate.hidden = true;
+  ipInputMessage.textContent = "";
+});
+
+/*
+ * STEP 3:
+ * Validate the entered Internet IP before continuing.
+ */
+continueInjectBtn.addEventListener("click", () => {
+  const enteredIp = internetIpInput.value.trim();
+
+  if (!enteredIp) {
+    ipInputMessage.textContent =
+      "Please enter your internet IP address.";
+    return;
+  }
+
+  if (!isValidIpAddress(enteredIp)) {
+    ipInputMessage.textContent =
+      "Invalid IP format. Please check your address.";
+    return;
+  }
+
+  /*
+   * Store the value for this page session.
+   * The entered IP is not sent to the license server.
+   */
+  userInternetIp = enteredIp;
+
+  ipInputGate.hidden = true;
+  ipInputMessage.textContent = "";
+
+  /*
+   * STEP 4:
+   * Show the loading animation for three seconds.
+   */
   injectBtn.disabled = true;
   injectInfo.hidden = true;
-  injectText.innerHTML = '<span class="inject-spinner"></span>INJECTING...';
+
+  injectText.innerHTML =
+    '<span class="inject-spinner"></span>INJECTING...';
+
   injectStatus.textContent = "";
 
   injectTimer = setTimeout(() => {
@@ -1299,7 +1737,15 @@ injectBtn.addEventListener("click", () => {
   }, 3000);
 });
 
-/* Best-effort zoom prevention on iOS */
+/* ENTER KEY SUBMITS THE IP FORM */
+internetIpInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    continueInjectBtn.click();
+  }
+});
+
+/* PREVENT GESTURE ZOOM ON IOS */
 document.addEventListener("gesturestart", event => {
   event.preventDefault();
 }, { passive: false });
@@ -1312,7 +1758,7 @@ document.addEventListener("gestureend", event => {
   event.preventDefault();
 }, { passive: false });
 
-/* Begin locked; unlock only after successful server validation. */
+/* START LOCKED; VALIDATE SAVED KEY */
 lockApplication("Checking activation...");
 revalidateSavedLicense();
 </script>
