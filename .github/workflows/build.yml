@@ -1,0 +1,45 @@
+name: Build DARK PROXY iOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Add iOS platform
+        run: npx cap add ios
+
+      - name: Sync iOS project
+        run: npx cap sync ios
+
+      - name: Build iOS app
+        run: |
+          cd ios/App
+          xcodebuild -project App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Upload iOS build
+        uses: actions/upload-artifact@v4
+        with:
+          name: DARK-PROXY-iOS
+          path: ios/App/build/Build/Products/Release-iphoneos/App.app
