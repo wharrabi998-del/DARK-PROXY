@@ -1,14 +1,17 @@
-name: Build DARK PROXY iOS
+name: Build DARK PROXY IPA
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - name: Download project
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -22,7 +25,7 @@ jobs:
       - name: Build web app
         run: npm run build
 
-      - name: Add iOS platform
+      - name: Create iOS project
         run: npx cap add ios
 
       - name: Sync iOS project
@@ -31,15 +34,22 @@ jobs:
       - name: Build iOS app
         run: |
           cd ios/App
-          xcodebuild -project App.xcodeproj \
+          xcodebuild \
+            -project App.xcodeproj \
             -scheme App \
             -configuration Release \
             -sdk iphoneos \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO
 
-      - name: Upload iOS build
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          cp -R ios/App/build/Build/Products/Release-iphoneos/App.app Payload/
+          zip -r DARK-PROXY.ipa Payload
+
+      - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: DARK-PROXY-iOS
-          path: ios/App/build/Build/Products/Release-iphoneos/App.app
+          name: DARK-PROXY-IPA
+          path: DARK-PROXY.ipa
